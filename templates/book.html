@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+{% extends "layout.html" %}
+
+{% block title %}
+    Bookpage
+{% endblock %}
+
+{% block body %}
+    {% if logout %}
+    <nav>
+        <a href = "{{ url_for('index') }}"><button class = "btn btn-primary home-btn">Homepage</button></a>
+        <a href = "{{ url_for('register') }}"><button class = "btn btn-primary register-btn">Register</button></a>
+        <a href = "{{ url_for('login') }}"><button class = "btn btn-primary login-btn">Login</button></a>
+        <a href = "{{ url_for('search') }}"><button class = "btn btn-primary search-btn">Search</button></a>
+    </nav>
+    {% else %}
+    <nav>
+        <a href = "{{ url_for('index') }}"><button class = "btn btn-primary home-btn">Home</button></a>
+        <a href = "{{ url_for('logout', to_page = 'book') }}"><button class = "btn btn-primary logout-btn">Logout</button></a>
+        <a href = "{{ url_for('search') }}"><button class = "btn btn-primary search-btn">Search</button></a>
+        <a href = "{{ url_for('index') }}" class = "username">{{username}}</a>
+    </nav>
+    {% endif %}
+    <div class = "container">
+        {% if logout %}
+            <h5 class = "text-center" style = "margin-top: 20px">View books and manage reviews</h5>
+            <h1 class = "text-center text-danger">Must Login to gain aceess to book details!</h1>
+        {% else %}
+            <h1 class = "text-center">{{book.title}}</h1>
+            <br>
+            <h2>Details:</h2>
+            {% if no_book %}
+                <li> No matching book found!</li>
+            {% else %}
+                <ul>
+                    <li>Title: {{book.title}}</li>
+                    <li>Author: {{book.author}}</li>
+                    <li>Year: {{book.year}}</li>
+                    <li>ISBN: {{book.isbn}}</li>
+                </ul>
+            {% endif %}
+            <hr>
+            <h4>Goodreads Review:</h4>
+            <ul>
+                <li>Ratings: {{rating_num}}</li>
+                <li>Avg_rating: {{api_avg_rating}} out of 5</li>
+            </ul>
+            <hr>
+            
+            <div class = "beside">
+                <div>
+                    <form action = "{{url_for('book', book_id=book.id)}}" method = "post">
+                        <h1>Add a review:</h1>
+                        <h5 class = "text-danger">{{error}}</h5>
+                        <textarea rows = "4" cols = "50" name = "text_review" placeholder = "Say something about this book!" required></textarea>
+                        <br>
+                        
+                            Rating: <select name = "avg_rating" id = "star_rating">
+                                <option value = "1">1</option>
+                                <option value = "2">2</option>
+                                <option value = "3">3</option>
+                                <option value = "4">4</option>
+                                <option value = "5">5</option>
+                            </select> of 5
+                        
+                            <!--<div class="rating">
+                                <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                            </div>
+                            !-->
+                        
+                        
+                        <br>
+                        
+
+                        <div class = "form-group">
+                            <button style = "margin-top: 10px" class = "btn btn-primary">Submit review</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class = "to-right">
+                    <h2>Users reviews:</h2>
+                    <ul>
+                        {% for review in reviews %}
+                            <hr>
+                            <li>Name: {{review.user_username}}</li>
+                            <li>Review: {{review.text_review}}</li>
+                            <li>Rating: {{review.rating}} of 5</li>
+                            <hr>
+                        {% else %}
+                            <h6 class = "text-info">No reviews yet for this book. Add a review!</h6>
+                        {% endfor %}
+
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}
