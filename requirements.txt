@@ -5,3 +5,4 @@ SQLAlchemy
 passlib
 Flask-Jsonpify
 gunicorn
+requests
