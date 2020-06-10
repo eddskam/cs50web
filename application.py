@@ -14,7 +14,7 @@ from models import *
 
 app = Flask(__name__)
 #key = os.getenv("key") # API KEY
-key = RIAGGrhWLz4rcHLxgQvmXg
+key = "RIAGGrhWLz4rcHLxgQvmXg"
 # Check for environment variable
 #if not os.getenv("DATABASE_URL"):
     #raise RuntimeError("DATABASE_URL is not set")
