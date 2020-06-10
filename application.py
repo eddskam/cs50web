@@ -13,10 +13,12 @@ from passlib.hash import pbkdf2_sha256
 from models import *
 
 app = Flask(__name__)
-key = os.getenv("key") # API KEY
+#key = os.getenv("key") # API KEY
+key = RIAGGrhWLz4rcHLxgQvmXg
 # Check for environment variable
-if not os.getenv("DATABASE_URL"):
-    raise RuntimeError("DATABASE_URL is not set")
+#if not os.getenv("DATABASE_URL"):
+    #raise RuntimeError("DATABASE_URL is not set")
+DATABASE_URL="postgres://emtsccdibxvgxf:2d333c7d3fd7068beddc067a7bc1dbe6e081439374fee7abc83fa7aa124fd5d9@ec2-174-129-33-181.compute-1.amazonaws.com:5432/d1mt9tes3rdeu0"
 
 # Configure session to use filesystem
 app.config["SESSION_PERMANENT"] = False
@@ -24,7 +26,8 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Set up database
-engine = create_engine(os.getenv("DATABASE_URL"))
+#engine = create_engine(os.getenv("DATABASE_URL"))
+engine = create_engine("DATABASE_URL")
 db = scoped_session(sessionmaker(bind=engine))
    
 
