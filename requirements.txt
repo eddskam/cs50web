@@ -1,7 +1,1 @@
-Flask
-Flask-Session
-psycopg2-binary
-SQLAlchemy
-passlib
-Flask-Jsonpify
-gunicorn
+
